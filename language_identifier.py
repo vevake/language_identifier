@@ -123,14 +123,7 @@ def test(file_path = 'test_data.csv'):
             if orig_label == pred_label:
                 count += 1
     print 'Accuracy :', float(count)/float(total)      
-    # count = 0
-    # for i in range(len(test_data)):
-    #     orig_label = test_data['language'][i]
-    #     pred_label, pred_prob = predict(test_data['text'][i])
-    #     # print pred_label, pred_prob
-    #     if orig_label == pred_label:
-    #         count += 1
-    # print 'Accuracy :', float(count)/float(len(test_data))
+    
 
 if __name__ == '__main__':
     test_mode = 'auto'
