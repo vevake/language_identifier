@@ -1,9 +1,8 @@
 import re
-import numpy as np
 import math
-import pandas as pd
-import  sys
+import sys
 import os
+import csv
 
 #variable use to store the traindata information
 labels = [] #list of all possible output labels 
@@ -77,7 +76,7 @@ def predict(text):
         total_count = sum(documents.values())
         inverse_count = total_count - d
     l = len(labels) 
-    probability = np.zeros(l)
+    probability = [0] * l
     for i in range(len(labels)):
         label = labels[i]
         logSum = 0 
@@ -112,15 +111,26 @@ def test(file_path = 'test_data.csv'):
     test the trained model on DLI32 dataset
     '''
     print 'Testing on DLI32 dataset...'
-    test_data = pd.read_csv(file_path)
-    count = 0
-    for i in range(len(test_data)):
-        orig_label = test_data['language'][i]
-        pred_label, pred_prob = predict(test_data['text'][i])
-        # print pred_label, pred_prob
-        if orig_label == pred_label:
-            count += 1
-    print 'Accuracy :', float(count)/float(len(test_data))
+    
+    count, total =0,0
+    with open(file_path, 'rb') as test_file:
+        reader = csv.DictReader(test_file)
+        for row in reader:
+            total += 1
+            orig_label = row['language']
+            pred_label, pred_prob = predict(row['text']) 
+            # print pred_label, pred_prob        
+            if orig_label == pred_label:
+                count += 1
+    print 'Accuracy :', float(count)/float(total)      
+    # count = 0
+    # for i in range(len(test_data)):
+    #     orig_label = test_data['language'][i]
+    #     pred_label, pred_prob = predict(test_data['text'][i])
+    #     # print pred_label, pred_prob
+    #     if orig_label == pred_label:
+    #         count += 1
+    # print 'Accuracy :', float(count)/float(len(test_data))
 
 if __name__ == '__main__':
     test_mode = 'auto'
@@ -133,21 +143,19 @@ if __name__ == '__main__':
     else:
         test_string = None
 
-    #train data
-    data = pd.read_csv('train_data.csv')
+    #Training   
     # print 'Started Training model on DLI32-2 dataset with 32 languages...'
-    for i in range(len(data)):
-        train(data['text'][i], data['language'][i])
+    with open('train_data.csv', 'rb') as train_file:
+        reader = csv.DictReader(train_file)
+        for row in reader:
+            train(row['text'], row['language'])        
     #print 'Training Completed'
     
     #testing
     if test_mode == 'sentence':
-        print '1'
         pred_label, pred_prob = predict(test_file)
         print pred_label, pred_prob 
     elif test_mode =='file':
-        print '2'
         test(file_path=test_file)
     else:
-        print '3'
         test()
