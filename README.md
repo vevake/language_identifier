@@ -9,14 +9,14 @@ Polish, Dutch, Irish, Icelandic, Hindi, Czech, Malay, Bulgarian, Urdu,
 Norwegian, Danish, Hebrew, Swedish, Hungarian, Latin, and Albanian
 ```
 
-#Train and Test data
+# Train and Test data
 The train data used for the model training are the <a href = 'https://github.com/xprogramer/DLI32-corpus' target='_blank'>DLI32-corpus </a>
 
 The DLI32 corpus containing 320 texts corresponding to 10 texts per language which is used for training and DLI32-2 corpus consisting of 640 texts corresponding to 20 texts per language is used for testing.
 
 The train and test data are parsed already and saved in a csv file 
 
-#Running the program
+# Running the program
 To identify the language of a text sentence directly
 >$ python language_identifier.py <text_sentence>
 
@@ -28,5 +28,5 @@ Save the sentences in a csv file delimited by ',' in the format under the header
 ```sh
  <sentence>, <label>
 ```
-then     
+then,     
 >$ python language_identifier.py <file_path>
