@@ -134,7 +134,7 @@ if __name__ == '__main__':
         test_string = None
 
     #train data
-    data = pd.read_csv('/home/vevake/Desktop/train_data.csv')
+    data = pd.read_csv('train_data.csv')
     # print 'Started Training model on DLI32-2 dataset with 32 languages...'
     for i in range(len(data)):
         train(data['text'][i], data['language'][i])
