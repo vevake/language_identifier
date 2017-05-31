@@ -112,7 +112,7 @@ def predict(text):
 
 def test_sentences(file_path = 'test_data.csv'):
     '''
-    test the trained model on DLI32 dataset
+    test the trained model on DLI32-2 dataset
     '''
     print 'Testing on DLI32 dataset...'
     
