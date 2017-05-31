@@ -133,6 +133,9 @@ if __name__ == '__main__':
            test_mode = 'file'
        else:
            test_mode = 'sentence'
+    elif len(sys.argv) > 2:
+        print 'Error in input. Please correct input.'
+        sys.exit()
     else:
         test_string = None
 
@@ -147,7 +150,9 @@ if __name__ == '__main__':
     #testing
     if test_mode == 'sentence':
         pred_label, pred_prob = predict(test_file)
-        print pred_label, pred_prob 
+        print 'Input Sentence : ', test_file
+        print 'Predicted language : ', pred_label
+        print 'Predicted Probability : ', pred_prob 
     elif test_mode =='file':
         test(file_path=test_file)
     else:
