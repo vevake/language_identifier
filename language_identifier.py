@@ -101,12 +101,16 @@ def predict(text):
                 elif (bayes_prob == 1):
                     bayes_prob = 0.99
             logSum += (math.log(1 - bayes_prob) - math.log(bayes_prob));
-        scores[label] = 1 / ( 1 + math.exp(logSum) );
+        try:
+            e = math.exp(logSum)
+        except OverflowError:
+            e = float('inf')
+        scores[label] = 1 / ( 1 + e );
     pred = max(scores, key=scores.get)
     pred_prob = scores[pred]
     return pred, pred_prob
 
-def test(file_path = 'test_data.csv'):
+def test_sentences(file_path = 'test_data.csv'):
     '''
     test the trained model on DLI32 dataset
     '''
@@ -123,7 +127,19 @@ def test(file_path = 'test_data.csv'):
             if orig_label == pred_label:
                 count += 1
     print 'Accuracy :', float(count)/float(total)      
-    
+
+def test(file_path):
+    '''
+    predict the language of a document
+    '''
+    count, total =0,0
+    text = open(file_path, 'rb').read()
+    print text
+    pred_label, pred_prob = predict(text)
+    print 'Input Sentence : ', test_file
+    print 'Predicted language : ', pred_label
+    print 'Predicted Probability : ', pred_prob             
+
 
 if __name__ == '__main__':
     test_mode = 'auto'
@@ -156,4 +172,4 @@ if __name__ == '__main__':
     elif test_mode =='file':
         test(file_path=test_file)
     else:
-        test()
+        test_sentences()

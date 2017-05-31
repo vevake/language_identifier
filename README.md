@@ -23,10 +23,5 @@ To identify the language of a text sentence directly
 example :
 >$ python language_identifier.py 'The weather here is awesome'
 
-To identify the language for a number of sentences.
-Save the sentences in a csv file delimited by ',' in the format under the headers 'text , language'
-```sh
- <sentence>, <label>
-```
-then,     
+To identify the language for a document.
 >$ python language_identifier.py <file_path>
